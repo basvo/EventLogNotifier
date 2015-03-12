@@ -19,7 +19,5 @@
         <RadioButton Content="Off" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,107,0,0" GroupName="Setup" IsChecked="True"/>
         <RadioButton Content="On" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,138,0,0" GroupName="System"/>
         <RadioButton Content="Off" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,138,0,0" GroupName="System" IsChecked="True"/>
-
-
     </Grid>
 </Window>

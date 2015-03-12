@@ -1,0 +1,9 @@
+Resource:	Icon 
+Artist:		dAKirby309. 
+License:	Licensed under CC Attribution-Noncommercial 4.0
+URL:		http://www.iconarchive.com/show/windows-8-metro-icons-by-dakirby309/Folders-OS-Info-Metro-icon.html
+
+Resource:	Hardcodet.Wpf.TaskbarNotification
+Author:		Philipp Sumi
+License:	The Code Project Open License (CPOL)
+URL:		http://www.codeproject.com/Articles/36468/WPF-NotifyIcon
