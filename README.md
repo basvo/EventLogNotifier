@@ -2,4 +2,4 @@
 
 ![EventLogNotifier](http://i.imgur.com/eTQ516M.png)
 
-Small tool that lives in your systray and shows a notification whenever something bad happens in your event log.
+Small tool that lives in your systray and shows a notification whenever something happens in your event log.
