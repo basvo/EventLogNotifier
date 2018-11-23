@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Configuration;
 using System.Diagnostics;
 
 namespace EventLogNotifier
@@ -49,25 +49,47 @@ namespace EventLogNotifier
         /// <param name="e"></param>
         void eventLog_EntryWritten(object sender, EntryWrittenEventArgs e)
         {
-            // Translate the EntryType to something simpler.
-            // The subscriber only wants to have a reference to us, not System.Diagnostics
-            EntryType transformedEntryType;
-
-            switch (e.Entry.EntryType)
+            // Check against filter
+            if (IsSourceAllowed (e.Entry.Source))
             {
-                case EventLogEntryType.Error:
-                    transformedEntryType = EntryType.Error;
-                    break;
-                case EventLogEntryType.Warning:
-                    transformedEntryType = EntryType.Warning;
-                    break;
-                default:
-                    transformedEntryType = EntryType.Information;
-                    break;
+                // Translate the EntryType to something simpler.
+                // The subscriber only wants to have a reference to us, not System.Diagnostics
+                EntryType transformedEntryType;
+
+                switch (e.Entry.EntryType)
+                {
+                    case EventLogEntryType.Error:
+                        transformedEntryType = EntryType.Error;
+                        break;
+                    case EventLogEntryType.Warning:
+                        transformedEntryType = EntryType.Warning;
+                        break;
+                    default:
+                        transformedEntryType = EntryType.Information;
+                        break;
+                }
+
+                // Fire the event
+                EntryWritten(e.Entry.Source, e.Entry.Message, transformedEntryType);
+            }
+        }
+
+        /// <summary>
+        /// Checks if an Event Source is allowed to be shown as a notification.
+        /// </summary>
+        /// <param name="source">The source to check against the appSettings values</param>
+        /// <returns></returns>
+        private bool IsSourceAllowed (string source)
+        {
+            var appSettings = ConfigurationManager.AppSettings["ignore"];
+            if (!String.IsNullOrEmpty(appSettings))
+            {
+                var sources = appSettings.Split(',');
+                if (sources.Contains(source))
+                    return false;
             }
 
-            // Fire the event
-            EntryWritten(e.Entry.Source, e.Entry.Message, transformedEntryType);
+            return true;
         }
 
     }
